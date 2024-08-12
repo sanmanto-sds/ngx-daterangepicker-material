@@ -4,11 +4,23 @@ import utc from 'dayjs/esm/plugin/utc';
 dayjs.extend(utc);
 import { DaterangepickerComponent, DaterangepickerDirective } from '../../../../src/daterangepicker';
 import { ChosenDate, TimePeriod } from '../../../../src/daterangepicker/daterangepicker.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms';
+import { JsonPipe, NgIf } from '@angular/common';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'simple',
-  templateUrl: './simple.component.html'
+  templateUrl: './simple.component.html',
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    DaterangepickerDirective,
+    FormsModule,
+    DaterangepickerComponent,
+    JsonPipe,
+    NgIf
+  ]
 })
 export class SimpleComponent implements OnInit {
   @ViewChild(DaterangepickerDirective, { static: true }) pickerDirective: DaterangepickerDirective;

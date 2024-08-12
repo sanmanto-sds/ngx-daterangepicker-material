@@ -1,11 +1,28 @@
 import { Component } from '@angular/core';
-import { DateRange, DateRanges, TimePeriod } from '../../../../src/daterangepicker/daterangepicker.component';
+import {
+  DateRange,
+  DaterangepickerComponent,
+  DateRanges,
+  TimePeriod
+} from '../../../../src/daterangepicker/daterangepicker.component';
 import dayjs, { Dayjs } from 'dayjs/esm';
+import { DaterangepickerDirective } from '../../../../src/daterangepicker';
+import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'custom-ranges',
-  templateUrl: './custom-ranges.component.html'
+  templateUrl: './custom-ranges.component.html',
+  imports: [
+    DaterangepickerDirective,
+    FormsModule,
+    MatToolbarModule,
+    JsonPipe,
+    DaterangepickerComponent
+  ],
+  standalone: true
 })
 export class CustomRangesComponent {
   selected: TimePeriod;

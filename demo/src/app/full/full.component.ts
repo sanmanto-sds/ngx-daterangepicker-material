@@ -3,11 +3,29 @@ import dayjs from 'dayjs/esm';
 import { DaterangepickerDirective } from '../../../../src/daterangepicker/daterangepicker.directive';
 import { EndDate, StartDate } from '../../../../src/daterangepicker/daterangepicker.component';
 import { LocaleConfig } from '../../../../src/daterangepicker';
+import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { JsonPipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'full',
-  templateUrl: './full.component.html'
+  templateUrl: './full.component.html',
+  imports: [
+    DaterangepickerDirective,
+    FormsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatInputModule,
+    JsonPipe,
+    MatSelectModule,
+    MatButtonModule
+  ],
+  standalone: true
 })
 export class FullComponent implements OnInit {
   @ViewChild(DaterangepickerDirective, { static: true }) daterangepicker: DaterangepickerDirective;

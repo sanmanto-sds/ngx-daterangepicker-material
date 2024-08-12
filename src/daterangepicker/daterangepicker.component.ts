@@ -23,13 +23,15 @@ import LocalizedFormat from 'dayjs/esm/plugin/localizedFormat';
 import isoWeek from 'dayjs/esm/plugin/isoWeek';
 import week from 'dayjs/esm/plugin/weekOfYear';
 import customParseFormat from 'dayjs/esm/plugin/customParseFormat';
+import utc from 'dayjs/esm/plugin/utc';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 
 dayjs.extend(localeData);
 dayjs.extend(LocalizedFormat);
 dayjs.extend(isoWeek);
 dayjs.extend(week);
 dayjs.extend(customParseFormat);
-//dayjs.extend(utc);
+dayjs.extend(utc);
 
 export enum SideEnum {
   left = 'left',
@@ -147,6 +149,8 @@ interface VisibleCalendar {
   styleUrls: ['./daterangepicker.component.scss'],
   templateUrl: './daterangepicker.component.html',
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [NgClass, NgIf, NgForOf],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

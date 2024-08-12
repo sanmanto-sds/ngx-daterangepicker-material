@@ -25,14 +25,7 @@ import { LocaleComponent } from './locale/locale.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SimpleComponent,
-    LocaleComponent,
-    FullComponent,
-    SingleDatepickerComponent,
-    CustomRangesComponent,
-    ReactiveFormComponent,
-    TimepickerComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +44,14 @@ import { LocaleComponent } from './locale/locale.component';
       firstDay: 0
     }),
     RouterModule.forRoot(appRoutes),
-    MatOptionModule
+    MatOptionModule,
+    CustomRangesComponent,
+    LocaleComponent,
+    FullComponent,
+    ReactiveFormComponent,
+    SimpleComponent,
+    SingleDatepickerComponent,
+    TimepickerComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

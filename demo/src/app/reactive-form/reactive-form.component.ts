@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
 import dayjs from 'dayjs/esm';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocaleConfig } from '../../../../src/daterangepicker';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { DaterangepickerDirective, LocaleConfig } from '../../../../src/daterangepicker';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgClass } from '@angular/common';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'reactive-form',
-  templateUrl: './reactive-form.component.html'
+  templateUrl: './reactive-form.component.html',
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    ReactiveFormsModule,
+    DaterangepickerDirective,
+    NgClass
+  ]
 })
 export class ReactiveFormComponent {
   form: FormGroup;

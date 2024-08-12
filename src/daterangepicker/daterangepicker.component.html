@@ -29,7 +29,8 @@
     <div class="calendar" [ngClass]="{ right: singleDatePicker, left: !singleDatePicker }" *ngIf="showCalInRanges">
         <div class="calendar-table">
             <table class="table-condensed" *ngIf="calendarVariables">
-                <thead>
+                <thead
+                >
                     <tr>
                         <th *ngIf="showWeekNumbers || showISOWeekNumbers"></th>
                         <ng-container

@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import 'dayjs/locale/fr';
-import { LocaleConfig } from '../../../../src/daterangepicker';
+import { DaterangepickerDirective, LocaleConfig } from '../../../../src/daterangepicker';
 import weekday from 'dayjs/esm/plugin/weekday';
 import { Dayjs } from 'dayjs/esm';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms';
 dayjs.extend(weekday);
 dayjs.locale('fr');
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'single-datepicker',
-  templateUrl: './single-datepicker.component.html'
+  templateUrl: './single-datepicker.component.html',
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    DaterangepickerDirective,
+    FormsModule
+  ]
 })
 export class SingleDatepickerComponent implements OnInit {
   selected = dayjs();
