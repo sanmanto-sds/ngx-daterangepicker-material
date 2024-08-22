@@ -1,19 +1,20 @@
 import {
+  AfterViewInit, booleanAttribute,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
   HostListener,
-  Input,
+  Input, numberAttribute,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormControl, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import dayjs, { Dayjs } from 'dayjs/esm';
 import { LocaleConfig } from './daterangepicker.config';
 import { LocaleService } from './locale.service';
@@ -25,6 +26,7 @@ import week from 'dayjs/esm/plugin/weekOfYear';
 import customParseFormat from 'dayjs/esm/plugin/customParseFormat';
 import utc from 'dayjs/esm/plugin/utc';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { ThemeService } from './theme.service';
 
 dayjs.extend(localeData);
 dayjs.extend(LocalizedFormat);
@@ -150,71 +152,71 @@ interface VisibleCalendar {
   templateUrl: './daterangepicker.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [NgClass, NgIf, NgForOf],
+  imports: [NgClass, NgIf, NgForOf, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DaterangepickerComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class DaterangepickerComponent implements OnInit, OnChanges {
+export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input()
   startDate = dayjs().startOf('day');
 
   @Input()
   endDate = dayjs().endOf('day');
 
-  @Input()
+  @Input({ transform: numberAttribute })
   dateLimit: number = null;
 
   // general
-  @Input()
+  @Input({ transform: booleanAttribute })
   autoApply = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   singleDatePicker = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showDropdowns = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showWeekNumbers = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showISOWeekNumbers = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   linkedCalendars = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   autoUpdateInput = true;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   alwaysShowCalendars = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   maxSpan = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   lockStartDate = false;
 
   // timepicker variables
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePicker = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePicker24Hour = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePickerIncrement = 1;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePickerSeconds = false;
 
   // end of timepicker variables
-  @Input()
+  @Input({ transform: booleanAttribute })
   showClearButton = false;
 
   @Input()
@@ -235,24 +237,24 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   @Input()
   lastDayOfPreviousMonthClass: string = null;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showCustomRangeLabel: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showCancel = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   keepCalendarOpeningWithRange = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showRangeLabelOnInput = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   customRangeDirection = false;
 
   @Input() drops: string;
   @Input() opens: string;
-  @Input() closeOnAutoApply = true;
+  @Input({ transform: booleanAttribute }) closeOnAutoApply = true;
   @Output() choosedDate: EventEmitter<ChosenDate>;
   @Output() rangeClicked: EventEmitter<DateRange>;
   @Output() datesUpdated: EventEmitter<TimePeriod>;
@@ -294,7 +296,12 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   protected rangesHolder: DateRanges = {};
   private cachedVersion: { start: Dayjs; end: Dayjs } = { start: null, end: null };
 
-  constructor(private el: ElementRef, private ref: ChangeDetectorRef, private localeHolderService: LocaleService) {
+  constructor(
+    private el: ElementRef,
+    private ref: ChangeDetectorRef,
+    private localeHolderService: LocaleService,
+    private themeHolderService: ThemeService,
+  ) {
     this.choosedDate = new EventEmitter();
     this.rangeClicked = new EventEmitter();
     this.datesUpdated = new EventEmitter();
@@ -364,6 +371,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   isInvalidDate(date: Dayjs): boolean {
     return false;
   }
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
 
   @Input()
@@ -371,6 +379,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   isCustomDate(date: Dayjs): boolean {
     return false;
   }
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
 
   @Input()
@@ -387,6 +396,10 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   @HostListener('click', ['$event'])
   handleInternalClick(e: MouseEvent): void {
     return e.stopPropagation();
+  }
+
+  ngAfterViewInit() {
+    this.themeHolderService.setThemeToElement(this.el.nativeElement);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -521,7 +534,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       selectedHour: 0,
       selectedMinute: 0,
       selectedSecond: 0,
-      selected
+      selected,
     };
     // generate hours
     for (let i = start; i <= end; i++) {
@@ -718,7 +731,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       classes: {},
       minDate,
       maxDate,
-      calendar
+      calendar,
     };
     if (this.showDropdowns) {
       const currentMonth: number = calendar[1][1].month();
@@ -740,7 +753,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
         inMinYear,
         inMaxYear,
         monthArrays: Array.from(Array(12).keys()),
-        yearArrays: years
+        yearArrays: years,
       };
     }
 
@@ -1414,7 +1427,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
    * @param side left or right
    */
   private getDateWithTime(date, side: SideEnum): dayjs.Dayjs {
-    if(!!this.timepickerVariables[side]) {
+    if (!!this.timepickerVariables[side]) {
       let hour = parseInt(String(this.timepickerVariables[side].selectedHour), 10);
       if (!this.timePicker24Hour) {
         const ampm = this.timepickerVariables[side].ampmModel;
@@ -1429,7 +1442,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       const second = this.timePickerSeconds ? parseInt(String(this.timepickerVariables[side].selectedSecond), 10) : 0;
       return date.clone().hour(hour).minute(minute).second(second);
 
-    }else{
+    } else {
       return;
     }
   }

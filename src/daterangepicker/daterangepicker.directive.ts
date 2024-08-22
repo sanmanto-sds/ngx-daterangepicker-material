@@ -15,9 +15,17 @@ import {
   Output,
   EventEmitter,
   Renderer2,
-  HostBinding
+  HostBinding, booleanAttribute, numberAttribute,
 } from '@angular/core';
-import { ChosenDate, DateRange, DaterangepickerComponent, DateRanges, EndDate, StartDate, TimePeriod } from './daterangepicker.component';
+import {
+  ChosenDate,
+  DateRange,
+  DaterangepickerComponent,
+  DateRanges,
+  EndDate,
+  StartDate,
+  TimePeriod,
+} from './daterangepicker.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import dayjs from 'dayjs/esm';
 import { LocaleConfig } from './daterangepicker.config';
@@ -31,9 +39,9 @@ import { LocaleService } from './locale.service';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DaterangepickerDirective),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
 export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
@@ -53,31 +61,31 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
   @Input()
   maxDate: dayjs.Dayjs;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   autoApply: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   alwaysShowCalendars: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showCustomRangeLabel: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   linkedCalendars: boolean;
 
-  @Input()
+  @Input({ transform: numberAttribute })
   dateLimit: number = null;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   singleDatePicker: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showWeekNumbers: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showISOWeekNumbers: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showDropdowns: boolean;
 
   @Input()
@@ -89,10 +97,10 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
   @Input()
   isTooltipDate: (Dayjs) => string | boolean | null;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showClearButton: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   customRangeDirection: boolean;
 
   @Input()
@@ -122,32 +130,32 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
   @Input()
   lastDayOfPreviousMonthClass: string;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   keepCalendarOpeningWithRange: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showRangeLabelOnInput: boolean;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   showCancel = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   lockStartDate = false;
 
   // timepicker variables
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePicker = false;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePicker24Hour = false;
 
-  @Input()
+  @Input({ transform: numberAttribute })
   timePickerIncrement = 1;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   timePickerSeconds = false;
 
-  @Input() closeOnAutoApply = true;
+  @Input({ transform: booleanAttribute }) closeOnAutoApply = true;
   @Input()
   private endKeyHolder: string;
 
@@ -169,7 +177,7 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
     private renderer: Renderer2,
     private differs: KeyValueDiffers,
     private localeHolderService: LocaleService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
   ) {
     this.endKey = 'endDate';
     this.startKey = 'startDate';
@@ -310,7 +318,7 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
       if (change) {
         const value = {
           [this.startKeyHolder]: change.startDate,
-          [this.endKeyHolder]: change.endDate
+          [this.endKeyHolder]: change.endDate,
         };
         this.value = value as TimePeriod;
         this.onChange.emit(value as TimePeriod);
@@ -397,19 +405,19 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
       style = {
         top: containerTop,
         left: element.offsetLeft - container.clientWidth + element.clientWidth + 'px',
-        right: 'auto'
+        right: 'auto',
       };
     } else if (this.opens === 'center') {
       style = {
         top: containerTop,
         left: element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2 + 'px',
-        right: 'auto'
+        right: 'auto',
       };
     } else if (this.opens === 'right') {
       style = {
         top: containerTop,
         left: element.offsetLeft + 'px',
-        right: 'auto'
+        right: 'auto',
       };
     } else {
       const position = element.offsetLeft + element.clientWidth / 2 - container.clientWidth / 2;
@@ -417,13 +425,13 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
         style = {
           top: containerTop,
           left: element.offsetLeft + 'px',
-          right: 'auto'
+          right: 'auto',
         };
       } else {
         style = {
           top: containerTop,
           left: position + 'px',
-          right: 'auto'
+          right: 'auto',
         };
       }
     }

@@ -3,7 +3,7 @@ import {
   DateRange,
   DaterangepickerComponent,
   DateRanges,
-  TimePeriod
+  TimePeriod,
 } from '../../../../src/daterangepicker/daterangepicker.component';
 import dayjs, { Dayjs } from 'dayjs/esm';
 import { DaterangepickerDirective } from '../../../../src/daterangepicker';
@@ -20,9 +20,9 @@ import { JsonPipe } from '@angular/common';
     FormsModule,
     MatToolbarModule,
     JsonPipe,
-    DaterangepickerComponent
+    DaterangepickerComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CustomRangesComponent {
   selected: TimePeriod;
@@ -34,7 +34,7 @@ export class CustomRangesComponent {
   invalidDates: dayjs.Dayjs[] = [];
   tooltips = [
     { date: dayjs(), text: 'Today is just unselectable' },
-    { date: dayjs().add(2, 'days'), text: 'Yeeeees!!!' }
+    { date: dayjs().add(2, 'days'), text: 'Yeeeees!!!' },
   ];
 
   inlineDateTime: TimePeriod;
@@ -45,7 +45,8 @@ export class CustomRangesComponent {
     ['Last 30 Days']: [dayjs().subtract(29, 'days'), dayjs()],
     ['This Month']: [dayjs().startOf('month'), dayjs().endOf('month')],
     ['Last Month']: [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')],
-    ['Last 3 Month']: [dayjs().subtract(3, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')]
+    ['This Year']: [dayjs().startOf('year'), dayjs().endOf('year')],
+    ['Last Year']: [dayjs().subtract(1, 'year').startOf('year'), dayjs().subtract(1, 'year').endOf('year')],
   };
 
   constructor() {
@@ -57,7 +58,7 @@ export class CustomRangesComponent {
     this.showRangeLabelOnInput = true;
     this.selected = {
       startDate: dayjs().subtract(1, 'days').set('hours', 0).set('minutes', 0),
-      endDate: dayjs().subtract(1, 'days').set('hours', 23).set('minutes', 59)
+      endDate: dayjs().subtract(1, 'days').set('hours', 23).set('minutes', 59),
     };
   }
 
