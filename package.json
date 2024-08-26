@@ -30,6 +30,11 @@
     "copy:schematics": "cpr schematics/dist dist/schematics && shx cp ./schematics/collection.json ./dist/schematics && shx cp ./schematics/ng-add/schema.json ./dist/schematics/ng-add",
     "postbuild": "npm run build:schematics && npm run copy:schematics"
   },
+  "author": "Matsehora Yehor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanmanto-sds/ngx-daterangepicker-material"
+  },
   "peerDependencies": {
     "dayjs": "^1.11.4"
   },
