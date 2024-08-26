@@ -29,8 +29,8 @@ export class CustomRangesComponent {
   alwaysShowCalendars: boolean;
   showRangeLabelOnInput: boolean;
   keepCalendarOpeningWithRange: boolean;
-  maxDate: dayjs.Dayjs;
-  minDate: dayjs.Dayjs;
+  minDate: dayjs.Dayjs = dayjs().set('year', 2022).startOf('year');
+  maxDate: dayjs.Dayjs = dayjs().endOf('year');
   invalidDates: dayjs.Dayjs[] = [];
   tooltips = [
     { date: dayjs(), text: 'Today is just unselectable' },
@@ -50,16 +50,9 @@ export class CustomRangesComponent {
   };
 
   constructor() {
-    this.maxDate = dayjs().add(2, 'weeks');
-    this.minDate = dayjs().subtract(3, 'days');
-
     this.alwaysShowCalendars = true;
     this.keepCalendarOpeningWithRange = true;
     this.showRangeLabelOnInput = true;
-    // this.selected = {
-    //   startDate: dayjs().subtract(1, 'days').set('hours', 0).set('minutes', 0),
-    //   endDate: dayjs().subtract(1, 'days').set('hours', 23).set('minutes', 59),
-    // };
   }
 
   isInvalidDate = (m: dayjs.Dayjs): boolean => {

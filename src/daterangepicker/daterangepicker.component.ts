@@ -274,7 +274,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   public chosenLabel: string;
 
   public calendarVariables: CalendarVariableHolder = {};
-  // tooltiptext = []; // for storing tooltiptext
   public timepickerVariables: TimePickerVariablesHolder = {};
   daterangepicker: { start: FormControl; end: FormControl } = { start: new FormControl(), end: new FormControl() };
 
@@ -294,8 +293,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   public showCalInRanges = false;
   nowHoveredDate = null;
   pickingDate = false;
-  // options: any = {}; // should get some opt from user
-  // protected
 
   protected minDateHolder: dayjs.Dayjs;
   protected maxDateHolder: dayjs.Dayjs;
@@ -1208,10 +1205,23 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
       this.renderCalendar(SideEnum.left);
       this.renderCalendar(SideEnum.right);
     }
-    // const tooltip = side === SideEnum.left ? this.tooltiptext[leftCalDate] : this.tooltiptext[rightCalDate];
-    // if (tooltip.length > 0) {
-    //   (e.target as HTMLTableCellElement).setAttribute('title', tooltip);
-    // }
+  }
+
+  setCalendarPositionOnDateChange() {
+    const disableProcessCalendarMonthChange = this.linkedCalendars || this.singleDatePicker || !this.startDate || !this.endDate;
+    if (disableProcessCalendarMonthChange) return;
+    const isCalendarsHadCorrectMonths =
+      (
+        this.leftCalendar.month.month() === this.startDate.month()
+        && this.rightCalendar.month.month() === this.endDate.month()
+        && this.leftCalendar.month.year() === this.startDate.year()
+        && this.rightCalendar.month.year() === this.endDate.year()
+      )
+      || this.startDate.month() === this.endDate.month() && this.startDate.year() === this.endDate.year();
+    if (isCalendarsHadCorrectMonths) return;
+    this.leftCalendar.month = this.startDate;
+    this.rightCalendar.month = this.endDate;
+    this.updateCalendars();
   }
 
   /**
@@ -1280,6 +1290,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     if (this.autoApply && this.startDate && this.endDate) {
       this.clickApply();
     }
+    this.setCalendarPositionOnDateChange();
 
     // This is to cancel the blur event handler if the mouse was in one of the inputs
     e.stopPropagation();
@@ -1362,15 +1373,24 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     this.ongoing.emit(this.isOngoingActive);
   }
 
+  validateStartAndEndDate() {
+    if (this.singleDatePicker || (!this.minDate && !this.maxDate)) return;
+    this.setStartDate(this.startDate);
+    this.setEndDate(this.endDate);
+    this.clickApply();
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   show(e?: Event): void {
     if (this.isShown) {
       return;
     }
+    this.validateStartAndEndDate();
     this.cachedVersion.start = this.startDate.clone();
     this.cachedVersion.end = this.endDate.clone();
     this.isShown = true;
     this.updateView();
+    this.setCalendarPositionOnDateChange();
     this.calendarShow.emit();
   }
 
@@ -1389,14 +1409,10 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
       }
     }
 
-    // if a new date range was selected, invoke the user callback function
-    if (!this.startDate.isSame(this.cachedVersion.start) || !this.endDate.isSame(this.cachedVersion.end)) {
-      // this.callback(this.startDate, this.endDate, this.chosenLabel);
-    }
-
     // if picker is attached to a text input, update it
     this.updateElement();
     this.isShown = false;
+    this.validateStartAndEndDate();
     this.ref.detectChanges();
     this.calendarHide.emit();
   }
@@ -1596,17 +1612,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
             Array.prototype.push.apply(classes, isCustom);
           }
         }
-        // apply custom tooltip for this date
-        // const isTooltip = this.isTooltipDate(calendar[row][col]);
-        // if (isTooltip) {
-        //   if (typeof isTooltip === 'string') {
-        //     this.tooltiptext[calendar[row][col]] = isTooltip; // setting tooltiptext for custom date
-        //   } else {
-        //     this.tooltiptext[calendar[row][col]] = 'Put the tooltip as the returned value of isTooltipDate';
-        //   }
-        // } else {
-        //   this.tooltiptext[calendar[row][col]] = '';
-        // }
         // store classes var
         let cname = '';
         let disabled = false;
