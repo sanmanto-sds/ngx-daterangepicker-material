@@ -75,6 +75,7 @@ interface TimePickerVariables {
   selectedMinute: number;
   selectedSecond: number;
   hours: number[];
+  hoursLabels: string[];
   seconds: number[];
   disabledHours: number[];
   disabledMinutes: number[];
@@ -252,6 +253,9 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   @Input({ transform: booleanAttribute })
   customRangeDirection = false;
 
+  @Input({ transform: booleanAttribute })
+  rangeWithOngoingButton = false;
+
   @Input() drops: string;
   @Input() opens: string;
   @Input({ transform: booleanAttribute }) closeOnAutoApply = true;
@@ -262,6 +266,9 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   @Output() endDateChanged: EventEmitter<EndDate>;
   @Output() cancelClicked: EventEmitter<void>;
   @Output() clearClicked: EventEmitter<void>;
+  @Output() ongoing = new EventEmitter<boolean>();
+  @Output() calendarShow = new EventEmitter<void>();
+  @Output() calendarHide = new EventEmitter<void>();
   @ViewChild('pickerContainer', { static: true }) pickerContainer: ElementRef;
 
   public chosenLabel: string;
@@ -294,6 +301,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   protected maxDateHolder: dayjs.Dayjs;
   protected localeHolder: LocaleConfig = {};
   protected rangesHolder: DateRanges = {};
+  protected isOngoingActive: boolean = false;
   private cachedVersion: { start: Dayjs; end: Dayjs } = { start: null, end: null };
 
   constructor(
@@ -524,6 +532,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     const end = this.timePicker24Hour ? 23 : 12;
     this.timepickerVariables[side] = {
       hours: [],
+      hoursLabels: [],
       minutes: [],
       minutesLabel: [],
       seconds: [],
@@ -552,7 +561,9 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
         disabled = true;
       }
 
+      const hour = i < 10 ? `0${i}` : String(i);
       this.timepickerVariables[side].hours.push(i);
+      this.timepickerVariables[side].hoursLabels.push(hour);
       if (iIn24 === selected.hour() && !disabled) {
         this.timepickerVariables[side].selectedHour = i;
       } else if (disabled) {
@@ -885,6 +896,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   /**
    *  This is responsible for updating the calendars
    */
+
   updateCalendars(): void {
     this.renderCalendar(SideEnum.left);
     this.renderCalendar(SideEnum.right);
@@ -1211,6 +1223,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
    * @param col col position of the current date clicked
    */
   clickDate(e: Event, side: SideEnum, row: number, col: number): void {
+    if (this.rangeWithOngoingButton) this.isOngoingActive = false;
     if ((e.target as HTMLTableCellElement).tagName === 'TD') {
       if (!(e.target as HTMLTableCellElement).classList.contains('available')) {
         return;
@@ -1279,6 +1292,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
    * @param label
    */
   clickRange(e: MouseEvent, label: string): void {
+    this.isOngoingActive = false;
     this.chosenRange = label;
     if (label === this.locale.customRangeLabel) {
       this.isShown = true; // show calendars
@@ -1304,6 +1318,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
       }
       this.rangeClicked.emit({ label, dates });
       if (!this.keepCalendarOpeningWithRange || this.autoApply) {
+        this.updateView();
         this.clickApply();
       } else {
         if (!this.alwaysShowCalendars) {
@@ -1331,6 +1346,22 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     }
   }
 
+  clickOngoing() {
+    if (this.isOngoingActive) {
+      this.isOngoingActive = false;
+      this.chosenRange = this.locale.customRangeLabel;
+    } else {
+      this.chosenRange = '';
+      this.isOngoingActive = true;
+      this.startDate = null;
+      this.endDate = null;
+      this.choosedDate.emit({ chosenLabel: this.locale.ongoingLabel, startDate: null, endDate: null });
+      this.datesUpdated.emit({ startDate: null, endDate: null });
+      this.updateCalendars();
+    }
+    this.ongoing.emit(this.isOngoingActive);
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   show(e?: Event): void {
     if (this.isShown) {
@@ -1340,6 +1371,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     this.cachedVersion.end = this.endDate.clone();
     this.isShown = true;
     this.updateView();
+    this.calendarShow.emit();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1366,6 +1398,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     this.updateElement();
     this.isShown = false;
     this.ref.detectChanges();
+    this.calendarHide.emit();
   }
 
   /**
@@ -1427,7 +1460,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
    * @param side left or right
    */
   private getDateWithTime(date, side: SideEnum): dayjs.Dayjs {
-    if (!!this.timepickerVariables[side]) {
+    if (this.timepickerVariables[side]) {
       let hour = parseInt(String(this.timepickerVariables[side].selectedHour), 10);
       if (!this.timePicker24Hour) {
         const ampm = this.timepickerVariables[side].ampmModel;

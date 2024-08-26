@@ -39,10 +39,10 @@ export class CustomRangesComponent {
 
   inlineDateTime: TimePeriod;
   ranges: DateRanges = {
-    ['Today']: [dayjs(), dayjs()],
-    ['Yesterday']: [dayjs().subtract(1, 'days'), dayjs().subtract(1, 'days')],
-    ['Last 7 Days']: [dayjs().subtract(6, 'days'), dayjs()],
-    ['Last 30 Days']: [dayjs().subtract(29, 'days'), dayjs()],
+    ['Today']: [dayjs().startOf('day'), dayjs().endOf('day')],
+    ['Yesterday']: [dayjs().subtract(1, 'days').startOf('day'), dayjs().subtract(1, 'days').endOf('day')],
+    ['Last 7 Days']: [dayjs().subtract(6, 'days').startOf('day'), dayjs().endOf('day')],
+    ['Last 30 Days']: [dayjs().subtract(29, 'days').startOf('day'), dayjs().endOf('day')],
     ['This Month']: [dayjs().startOf('month'), dayjs().endOf('month')],
     ['Last Month']: [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')],
     ['This Year']: [dayjs().startOf('year'), dayjs().endOf('year')],
@@ -56,10 +56,10 @@ export class CustomRangesComponent {
     this.alwaysShowCalendars = true;
     this.keepCalendarOpeningWithRange = true;
     this.showRangeLabelOnInput = true;
-    this.selected = {
-      startDate: dayjs().subtract(1, 'days').set('hours', 0).set('minutes', 0),
-      endDate: dayjs().subtract(1, 'days').set('hours', 23).set('minutes', 59),
-    };
+    // this.selected = {
+    //   startDate: dayjs().subtract(1, 'days').set('hours', 0).set('minutes', 0),
+    //   endDate: dayjs().subtract(1, 'days').set('hours', 23).set('minutes', 59),
+    // };
   }
 
   isInvalidDate = (m: dayjs.Dayjs): boolean => {

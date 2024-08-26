@@ -54,6 +54,8 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
   @Output() startDateChanged: EventEmitter<StartDate> = new EventEmitter();
   @Output() endDateChanged: EventEmitter<EndDate> = new EventEmitter();
   @Output() clearClicked: EventEmitter<void> = new EventEmitter();
+  @Output() calendarShow = new EventEmitter<void>();
+  @Output() calendarHide = new EventEmitter<void>();
 
   @Input()
   minDate: dayjs.Dayjs;
@@ -158,6 +160,9 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
   @Input({ transform: booleanAttribute }) closeOnAutoApply = true;
   @Input()
   private endKeyHolder: string;
+
+  @Input({ transform: booleanAttribute })
+  rangeWithOngoingButton = false;
 
   public picker: DaterangepickerComponent;
   private startKeyHolder: string;
@@ -314,6 +319,12 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
     this.picker.clearClicked.asObservable().subscribe(() => {
       this.clearClicked.emit();
     });
+    this.picker.calendarShow.asObservable().subscribe(() => {
+      this.calendarShow.emit();
+    });
+    this.picker.calendarHide.asObservable().subscribe(() => {
+      this.calendarHide.emit();
+    });
     this.picker.choosedDate.asObservable().subscribe((change: ChosenDate) => {
       if (change) {
         const value = {
@@ -337,6 +348,7 @@ export class DaterangepickerDirective implements OnInit, OnChanges, DoCheck {
     this.picker.opens = this.opens;
     this.localeDiffer = this.differs.find(this.locale).create();
     this.picker.closeOnAutoApply = this.closeOnAutoApply;
+    this.picker.rangeWithOngoingButton = this.rangeWithOngoingButton;
   }
 
   // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle

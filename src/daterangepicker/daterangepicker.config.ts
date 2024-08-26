@@ -18,6 +18,7 @@ export interface LocaleConfig {
   cancelLabel?: string;
   clearLabel?: string;
   customRangeLabel?: string;
+  ongoingLabel?: string;
   daysOfWeek?: string[];
   monthNames?: string[];
   firstDay?: number;
@@ -38,6 +39,7 @@ export const DefaultLocaleConfig: LocaleConfig = {
   cancelLabel: 'Cancel',
   clearLabel: 'Clear',
   customRangeLabel: 'Custom range',
+  ongoingLabel: 'Ongoing',
   daysOfWeek: dayjs.weekdaysMin(),
   monthNames: dayjs.monthsShort(),
   firstDay: dayjs.localeData().firstDayOfWeek(),

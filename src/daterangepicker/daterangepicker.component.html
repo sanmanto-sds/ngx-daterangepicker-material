@@ -27,9 +27,11 @@
         </li>
       </ul>
       <button
+        *ngIf="rangeWithOngoingButton"
         class="ongoing"
-        type="button">
-        Ongoing
+        [class]="{ active: isOngoingActive }"
+        type="button"
+        (click)="clickOngoing()">{{ locale.ongoingLabel }}
       </button>
     </div>
     <div
