@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { NgxDaterangepickerMd } from './../../../src/daterangepicker';
+import { NgxDaterangepickerMd } from '../../../src/daterangepicker/public-api';
 import { AppComponent } from './app.component';
 import { SimpleComponent } from './simple/simple.component';
 import { FullComponent } from './full/full.component';
@@ -25,7 +25,7 @@ import { LocaleComponent } from './locale/locale.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ import { LocaleComponent } from './locale/locale.component';
     MatSelectModule,
     NgxDaterangepickerMd.forRoot({
       applyLabel: 'Okay',
-      firstDay: 0
+      firstDay: 0,
     }),
     RouterModule.forRoot(appRoutes),
     MatOptionModule,
@@ -51,9 +51,10 @@ import { LocaleComponent } from './locale/locale.component';
     ReactiveFormComponent,
     SimpleComponent,
     SingleDatepickerComponent,
-    TimepickerComponent
+    TimepickerComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

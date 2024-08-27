@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import 'dayjs/locale/fr';
-import { DaterangepickerDirective, LocaleConfig } from '../../../../src/daterangepicker';
+import {
+  DaterangepickerDirective,
+  LocaleConfig,
+  NgxDaterangepickerMd,
+} from '../../../../src/daterangepicker/public-api';
 import weekday from 'dayjs/esm/plugin/weekday';
 import { Dayjs } from 'dayjs/esm';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
+
 dayjs.extend(weekday);
 dayjs.locale('fr');
 
@@ -16,9 +21,9 @@ dayjs.locale('fr');
   standalone: true,
   imports: [
     MatToolbarModule,
-    DaterangepickerDirective,
-    FormsModule
-  ]
+    FormsModule,
+    NgxDaterangepickerMd,
+  ],
 })
 export class SingleDatepickerComponent implements OnInit {
   selected = dayjs();
@@ -27,11 +32,14 @@ export class SingleDatepickerComponent implements OnInit {
     customRangeLabel: ' - ',
     daysOfWeek: dayjs.weekdaysMin(),
     monthNames: dayjs.monthsShort(),
-    firstDay: dayjs.localeData().firstDayOfWeek()
+    firstDay: dayjs.localeData().firstDayOfWeek(),
   };
 
-  constructor() {}
-  ngOnInit(): void {}
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
 
   isInvalidDate(date: Dayjs): boolean {
     return date.weekday() === 0;

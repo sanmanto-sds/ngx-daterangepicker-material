@@ -6,7 +6,7 @@ import {
   TimePeriod,
 } from '../../../../src/daterangepicker/daterangepicker.component';
 import dayjs, { Dayjs } from 'dayjs/esm';
-import { DaterangepickerDirective } from '../../../../src/daterangepicker';
+import { DaterangepickerDirective, NgxDaterangepickerMd } from '../../../../src/daterangepicker/public-api';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { JsonPipe } from '@angular/common';
@@ -16,11 +16,10 @@ import { JsonPipe } from '@angular/common';
   selector: 'custom-ranges',
   templateUrl: './custom-ranges.component.html',
   imports: [
-    DaterangepickerDirective,
     FormsModule,
     MatToolbarModule,
     JsonPipe,
-    DaterangepickerComponent,
+    NgxDaterangepickerMd,
   ],
   standalone: true,
 })

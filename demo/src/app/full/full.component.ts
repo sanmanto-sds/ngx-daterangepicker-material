@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import { DaterangepickerDirective } from '../../../../src/daterangepicker/daterangepicker.directive';
 import { EndDate, StartDate } from '../../../../src/daterangepicker/daterangepicker.component';
-import { LocaleConfig } from '../../../../src/daterangepicker';
+import { LocaleConfig, NgxDaterangepickerMd } from '../../../../src/daterangepicker/public-api';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -16,16 +16,16 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'full',
   templateUrl: './full.component.html',
   imports: [
-    DaterangepickerDirective,
     FormsModule,
     MatToolbarModule,
     MatCardModule,
     MatInputModule,
     JsonPipe,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxDaterangepickerMd,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FullComponent implements OnInit {
   @ViewChild(DaterangepickerDirective, { static: true }) daterangepicker: DaterangepickerDirective;
@@ -41,7 +41,7 @@ export class FullComponent implements OnInit {
     showISOWeekNumbers: false,
     customRangeDirection: false,
     lockStartDate: false,
-    closeOnAutoApply: true
+    closeOnAutoApply: true,
   };
 
   minDate: dayjs.Dayjs = dayjs().subtract(5, 'days');
@@ -51,7 +51,7 @@ export class FullComponent implements OnInit {
     displayFormat: 'DD MMMM YYYY HH:mm',
     separator: ' To ',
     cancelLabel: 'Cancel',
-    applyLabel: 'Okay'
+    applyLabel: 'Okay',
   };
 
   opens: string;
@@ -67,13 +67,15 @@ export class FullComponent implements OnInit {
     this.dateLimit = 30;
   }
 
-  click(): void {}
+  click(): void {
+  }
 
   clear(): void {
     this.daterangepicker.clear();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   eventClicked(e: StartDate | EndDate): void {
     // eslint-disable-next-line no-console

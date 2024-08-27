@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DaterangepickerComponent } from './daterangepicker.component';
 import { DaterangepickerDirective } from './daterangepicker.directive';
@@ -9,8 +7,7 @@ import { LocaleService } from './locale.service';
 import { ThemeService } from './theme.service';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, DaterangepickerComponent, DaterangepickerDirective],
-  providers: [],
+  imports: [DaterangepickerComponent, DaterangepickerDirective],
   exports: [DaterangepickerComponent, DaterangepickerDirective],
 })
 export class NgxDaterangepickerMd {

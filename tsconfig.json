@@ -1,35 +1,46 @@
 {
-    "compilerOptions": {
-        "downlevelIteration": true,
-        "importHelpers": true,
-        "target": "es2020",
-        "module": "es2020",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "removeComments": true,
-        "noImplicitAny": false,
-        "declaration": true,
-        "sourceMap": false,
-        "outDir": "dist",
-        "lib": ["es2020", "dom"],
-        "baseUrl": "./",
-        "types": ["node"]
-    },
-    "angularCompilerOptions": {
-        "enableIvy": true,
-        "fullTemplateTypeCheck": true,
-        "skipTemplateCodegen": true,
-        "skipMetadataEmit": false,
-        "strictMetadataEmit": true,
-        "annotationsAs": "decorators",
-        "strictInjectionParameters": true,
-        "strictTemplates": true,
-        "compilationMode": "partial"
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts", "schematics"]
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "declaration": true,
+    "sourceMap": false,
+    "outDir": "dist",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "baseUrl": "./",
+    "types": [
+      "node"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "fullTemplateTypeCheck": true,
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true,
+    "annotationsAs": "decorators",
+    "strictInjectionParameters": true,
+    "strictTemplates": true,
+    "compilationMode": "partial"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "schematics"
+  ]
 }

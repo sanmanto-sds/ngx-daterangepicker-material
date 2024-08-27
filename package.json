@@ -15,7 +15,6 @@
     "picker"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "ng": "ng",
@@ -25,10 +24,7 @@
     "lint": "ng lint",
     "ngc": "./node_modules/.bin/ngc -p tsconfig.json",
     "gh-pages": "ng build --configuration production --base-href=\"/ngx-daterangepicker-material/\" && ngh --dir demo/dist",
-    "build": "ng-packagr -p ng-package.json -c tsconfig.json",
-    "build:schematics": "tsc -p ./tsconfig.schematics.json",
-    "copy:schematics": "cpr schematics/dist dist/schematics && shx cp ./schematics/collection.json ./dist/schematics && shx cp ./schematics/ng-add/schema.json ./dist/schematics/ng-add",
-    "postbuild": "npm run build:schematics && npm run copy:schematics"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.json"
   },
   "author": "Matsehora Yehor",
   "repository": {
@@ -36,7 +32,10 @@
     "url": "https://github.com/sanmanto-sds/ngx-daterangepicker-material"
   },
   "peerDependencies": {
-    "dayjs": "^1.11.4"
+    "dayjs": "^1.11.4",
+    "@angular/common": ">=17.0.0",
+    "@angular/core": ">=17.0.0",
+    "@angular/forms": ">=17.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.8",
@@ -57,7 +56,7 @@
     "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.12",
     "@angular/router": "^17.3.12",
-    "@schematics/angular": "^16.2.2",
+    "@schematics/angular": "^17.3.8",
     "@types/jasmine": "~4.3.6",
     "@types/jasminewd2": "~2.0.11",
     "@types/node": "^14.18.54",
@@ -95,5 +94,16 @@
     "dayjs": "^1.11.4",
     "tslib": "^2.6.2"
   },
-  "schematics": "./schematics/collection.json"
+  "main": "./fesm2022/ngx-daterangepicker-material.mjs",
+  "exports": {
+    "./package.json": {
+      "default": "./dist/package.json"
+    },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "esm2022": "./dist/esm2022/ngx-daterangepicker-material.mjs",
+      "esm": "./dist/esm2022/ngx-daterangepicker-material.mjs",
+      "default": "./dist/fesm2022/ngx-daterangepicker-material.mjs"
+    }
+  }
 }

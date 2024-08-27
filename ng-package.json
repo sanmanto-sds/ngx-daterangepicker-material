@@ -1,10 +1,13 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
-    "entryFile": "src/daterangepicker/index.ts"
+    "entryFile": "./src/daterangepicker/public-api.ts"
   },
   "allowedNonPeerDependencies": [
-    "dayjs"
+    "dayjs",
+    "@angular/common",
+    "@angular/core",
+    "@angular/forms"
   ],
   "dest": "dist"
 }
