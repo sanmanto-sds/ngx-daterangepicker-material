@@ -1,5 +1,5 @@
 {
-  "name": "ngx-daterangepicker-material",
+  "name": "@sanmanto-sds/ngx-daterangepicker-material",
   "version": "6.0.4",
   "description": "Angular 17 datepicker",
   "keywords": [
