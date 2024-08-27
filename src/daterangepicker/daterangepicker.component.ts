@@ -170,7 +170,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   endDate = dayjs().endOf('day');
 
   @Input({ transform: numberAttribute })
-  dateLimit: number = null;
+  dateLimit!: number;
 
   // general
   @Input({ transform: booleanAttribute })
@@ -221,22 +221,22 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   showClearButton = false;
 
   @Input()
-  firstMonthDayClass: string = null;
+  firstMonthDayClass!: string;
 
   @Input()
-  lastMonthDayClass: string = null;
+  lastMonthDayClass!: string;
 
   @Input()
-  emptyWeekRowClass: string = null;
+  emptyWeekRowClass!: string;
 
   @Input()
-  emptyWeekColumnClass: string = null;
+  emptyWeekColumnClass!: string;
 
   @Input()
-  firstDayOfNextMonthClass: string = null;
+  firstDayOfNextMonthClass!: string;
 
   @Input()
-  lastDayOfPreviousMonthClass: string = null;
+  lastDayOfPreviousMonthClass!: string;
 
   @Input({ transform: booleanAttribute })
   showCustomRangeLabel: boolean;
@@ -291,7 +291,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   leftCalendar: VisibleCalendar = { month: null, calendar: [] };
   rightCalendar: VisibleCalendar = { month: null, calendar: [] };
   public showCalInRanges = false;
-  nowHoveredDate = null;
+  nowHoveredDate: any = null;
   pickingDate = false;
 
   protected minDateHolder: dayjs.Dayjs;
