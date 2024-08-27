@@ -46,7 +46,7 @@
             <ng-container
               *ngIf="
                                 !calendarVariables['left']?.minDate ||
-                                (calendarVariables['left']?.minDate.isBefore(calendarVariables['left']?.calendar.firstDay) &&
+                                (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay) &&
                                     (!this.linkedCalendars || true))
                             ">
               <th (click)="clickPrev(sideEnum.left)" class="prev available"></th>
@@ -55,7 +55,7 @@
               *ngIf="
                                 !(
                                     !calendarVariables['left']?.minDate ||
-                                    (calendarVariables['left']?.minDate.isBefore(calendarVariables['left']?.calendar.firstDay) &&
+                                    (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay) &&
                                         (!this.linkedCalendars || true))
                                 )
                             ">
@@ -68,13 +68,13 @@
                     <select class="monthselect" (change)="monthChanged($event, sideEnum.left)">
                       <option
                         [disabled]="
-                                                (calendarVariables['left']?.dropdowns.inMinYear &&
-                                                    m < calendarVariables['left']?.minDate.month()) ||
-                                                (calendarVariables['left']?.dropdowns.inMaxYear && m > calendarVariables['left']?.maxDate.month())
+                                                (calendarVariables['left']?.dropdowns?.inMinYear &&
+                                                    m < calendarVariables['left']?.minDate?.month()) ||
+                                                (calendarVariables['left']?.dropdowns?.inMaxYear && m > calendarVariables['left']?.maxDate?.month())
                                             "
-                        *ngFor="let m of calendarVariables['left']?.dropdowns.monthArrays"
+                        *ngFor="let m of calendarVariables['left']?.dropdowns?.monthArrays || []"
                         [value]="m"
-                        [selected]="calendarVariables['left']?.dropdowns.currentMonth === m">
+                        [selected]="calendarVariables['left']?.dropdowns?.currentMonth === m">
                         {{ locale.monthNames?.[m] }}
                       </option>
                     </select>
@@ -82,8 +82,8 @@
                   <div class="dropdowns">
                     <select class="yearselect" (change)="yearChanged($event, sideEnum.left)">
                       <option
-                        *ngFor="let y of calendarVariables['left']?.dropdowns.yearArrays"
-                        [selected]="y === calendarVariables['left']?.dropdowns.currentYear">
+                        *ngFor="let y of calendarVariables['left']?.dropdowns?.yearArrays || []"
+                        [selected]="y === calendarVariables['left']?.dropdowns?.currentYear">
                         {{ y }}
                       </option>
                     </select>
@@ -91,14 +91,14 @@
                 </div>
               </ng-container>
               <ng-container *ngIf="!showDropdowns || !calendarVariables['left']?.dropdowns">
-                {{ this.locale.monthNames[calendarVariables?.left?.calendar?.[1]?.[1]?.month()] }}
-                {{ calendarVariables?.left?.calendar?.[1]?.[1]?.format(' YYYY') }}
+                {{ this.locale.monthNames[calendarVariables?.['left']?.calendar?.[1]?.[1]?.month() || -1] }}
+                {{ calendarVariables?.['left']?.calendar?.[1]?.[1]?.format(' YYYY') }}
               </ng-container>
             </th>
             <ng-container
               *ngIf="
                                 (!calendarVariables['left']?.maxDate ||
-                                    calendarVariables['left']?.maxDate.isAfter(calendarVariables['left']?.calendar.lastDay)) &&
+                                    calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay)) &&
                                 (!linkedCalendars || singleDatePicker)
                             ">
               <th class="next available" (click)="clickNext(sideEnum.left)"></th>
@@ -107,7 +107,7 @@
               *ngIf="
                                 !(
                                     (!calendarVariables['left']?.maxDate ||
-                                        calendarVariables['left']?.maxDate.isAfter(calendarVariables['left']?.calendar.lastDay)) &&
+                                        calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay)) &&
                                     (!linkedCalendars || singleDatePicker)
                                 )
                             ">
@@ -125,21 +125,21 @@
           </thead>
           <tbody class="drp-animate">
           <tr *ngFor="let row of calendarVariables['left']?.calRows"
-              [class]="calendarVariables['left']?.classes[row].classList">
+              [class]="calendarVariables['left']?.classes?.[row]?.classList || ''">
             <!-- add week number -->
             <td class="week" *ngIf="showWeekNumbers">
-              <span>{{ calendarVariables['left']?.calendar[row][0].week() }}</span>
+              <span>{{ calendarVariables['left']?.calendar?.[row]?.[0]?.week() }}</span>
             </td>
             <td class="week" *ngIf="showISOWeekNumbers">
-              <span>{{ calendarVariables['left']?.calendar[row][0].isoWeek() }}</span>
+              <span>{{ calendarVariables['left']?.calendar?.[row]?.[0]?.isoWeek() }}</span>
             </td>
             <!-- cal -->
             <td
               *ngFor="let col of calendarVariables['left']?.calCols"
-              [class]="calendarVariables['left']?.classes[row][col]"
+              [class]="calendarVariables['left']?.classes?.[row]?.[col] || ''"
               (click)="clickDate($event, sideEnum.left, row, col)"
               (mouseenter)="hoverDate($event, sideEnum.left, row, col)">
-              <span>{{ calendarVariables['left']?.calendar[row][col].date() }}</span>
+              <span>{{ calendarVariables['left']?.calendar?.[row]?.[col]?.date() }}</span>
             </td>
           </tr>
           </tbody>
@@ -153,12 +153,12 @@
           <select
             class="hourselect select-item"
             [disabled]="!startDate"
-            [(ngModel)]="timepickerVariables.left.selectedHour"
+            [(ngModel)]="timepickerVariables['left'].selectedHour"
             (ngModelChange)="timeChanged($event, sideEnum.left)">
             <option
-              *ngFor="let i of timepickerVariables.left.hours"
+              *ngFor="let i of timepickerVariables['left'].hours || []"
               [value]="i"
-              [disabled]="timepickerVariables.left.disabledHours.indexOf(i) > -1">
+              [disabled]="timepickerVariables['left'].disabledHours.indexOf(i) > -1">
               {{ i }}
             </option>
           </select>
@@ -168,13 +168,13 @@
           <select
             class="select-item minuteselect"
             [disabled]="!startDate"
-            [(ngModel)]="timepickerVariables.left.selectedMinute"
+            [(ngModel)]="timepickerVariables['left'].selectedMinute"
             (ngModelChange)="timeChanged($event, sideEnum.left)">
             <option
-              *ngFor="let i of timepickerVariables.left.minutes; let index = index"
+              *ngFor="let i of timepickerVariables['left']?.minutes || []; let index = index"
               [value]="i"
-              [disabled]="timepickerVariables.left.disabledMinutes.indexOf(i) > -1">
-              {{ timepickerVariables.left.minutesLabel[index] }}
+              [disabled]="timepickerVariables['left'].disabledMinutes.indexOf(i) > -1">
+              {{ timepickerVariables['left'].minutesLabel[index] }}
             </option>
           </select>
         </div>
@@ -185,13 +185,13 @@
             <select
               class="select-item secondselect"
               [disabled]="!startDate"
-              [(ngModel)]="timepickerVariables.left.selectedSecond"
+              [(ngModel)]="timepickerVariables['left'].selectedSecond"
               (ngModelChange)="timeChanged($event, sideEnum.left)">
               <option
-                *ngFor="let i of timepickerVariables.left.seconds; let index = index"
+                *ngFor="let i of timepickerVariables['left'].seconds; let index = index"
                 [value]="i"
-                [disabled]="timepickerVariables.left.disabledSeconds.indexOf(i) > -1">
-                {{ timepickerVariables.left.secondsLabel[index] }}
+                [disabled]="timepickerVariables['left'].disabledSeconds.indexOf(i) > -1">
+                {{ timepickerVariables['left'].secondsLabel[index] }}
               </option>
             </select>
           </div>
@@ -201,10 +201,10 @@
           class="dropdowns">
           <select
             class="select-item ampmselect"
-            [(ngModel)]="timepickerVariables.left.ampmModel"
+            [(ngModel)]="timepickerVariables['left'].ampmModel"
             (ngModelChange)="timeChanged($event, sideEnum.left)">
-            <option value="AM" [disabled]="timepickerVariables.left.amDisabled">AM</option>
-            <option value="PM" [disabled]="timepickerVariables.left.pmDisabled">PM</option>
+            <option value="AM" [disabled]="timepickerVariables['left'].amDisabled">AM</option>
+            <option value="PM" [disabled]="timepickerVariables['left'].pmDisabled">PM</option>
           </select>
         </div>
       </div>
@@ -228,7 +228,7 @@
               *ngIf="
                                 !(
                                     (!calendarVariables['right']?.minDate ||
-                                        calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar.firstDay)) &&
+                                        calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar?.firstDay)) &&
                                     !this.linkedCalendars
                                 )
                             ">
@@ -267,14 +267,14 @@
                 </div>
               </ng-container>
               <ng-container *ngIf="!showDropdowns || !calendarVariables['right']?.dropdowns">
-                {{ this.locale.monthNames[calendarVariables?.right?.calendar[1]?.[1]?.month()] }}
-                {{ calendarVariables?.right?.calendar[1]?.[1]?.format(' YYYY') }}
+                {{ this.locale.monthNames[calendarVariables?.['right']?.calendar?.[1]?.[1]?.month()] }}
+                {{ calendarVariables?.['right']?.calendar[1]?.[1]?.format(' YYYY') }}
               </ng-container>
             </th>
             <ng-container
               *ngIf="
                                 !calendarVariables['right']?.maxDate ||
-                                (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar.lastDay) &&
+                                (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay) &&
                                     (!linkedCalendars || singleDatePicker || true))
                             ">
               <th class="next available" (click)="clickNext(sideEnum.right)"></th>
@@ -283,7 +283,7 @@
               *ngIf="
                                 !(
                                     !calendarVariables['right']?.maxDate ||
-                                    (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar.lastDay) &&
+                                    (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay) &&
                                         (!linkedCalendars || singleDatePicker || true))
                                 )
                             ">
@@ -304,17 +304,17 @@
           <tr *ngFor="let row of calendarVariables['right']?.calRows"
               [class]="calendarVariables['right']?.classes[row].classList">
             <td class="week" *ngIf="showWeekNumbers">
-              <span>{{ calendarVariables['right']?.calendar[row][0].week() }}</span>
+              <span>{{ calendarVariables['right']?.calendar?.[row]?.[0]?.week() }}</span>
             </td>
             <td class="week" *ngIf="showISOWeekNumbers">
-              <span>{{ calendarVariables['right']?.calendar[row][0].isoWeek() }}</span>
+              <span>{{ calendarVariables['right']?.calendar?.[row]?.[0]?.isoWeek() }}</span>
             </td>
             <td
               *ngFor="let col of calendarVariables['right']?.calCols"
               [class]="calendarVariables['right']?.classes[row][col]"
               (click)="clickDate($event, sideEnum.right, row, col)"
               (mouseenter)="hoverDate($event, sideEnum.right, row, col)">
-              <span>{{ calendarVariables['right']?.calendar[row][col].date() }}</span>
+              <span>{{ calendarVariables['right']?.calendar?.[row]?.[col]?.date() }}</span>
             </td>
           </tr>
           </tbody>
