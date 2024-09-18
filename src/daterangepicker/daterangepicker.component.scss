@@ -11,7 +11,7 @@
   padding: var(--datepicker-calendarMargin);
   overflow: hidden;
   z-index: 1000;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 40px 0 rgba(0, 0, 0, .1);
 
   * {
     box-sizing: border-box;
