@@ -24,7 +24,8 @@
     "lint": "ng lint",
     "ngc": "./node_modules/.bin/ngc -p tsconfig.json",
     "gh-pages": "ng build --configuration production --base-href=\"/ngx-daterangepicker-material/\" && ngh --dir demo/dist",
-    "build": "ng-packagr -p ng-package.json -c tsconfig.json"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.json",
+    "publish:npm": "npm publish --access public"
   },
   "author": "Matsehora Yehor",
   "repository": {
