@@ -1,5 +1,5 @@
 {
-  "name": "@sanmanto-sds/ngx-daterangepicker-material",
+  "name": "n",
   "version": "1.0.0",
   "description": "Angular 17 datepicker",
   "keywords": [
@@ -95,7 +95,7 @@
     "dayjs": "^1.11.4",
     "tslib": "^2.6.2"
   },
-  "main": "./fesm2022/ngx-daterangepicker-material.mjs",
+  "main": "./fesm2022/n.mjs",
   "exports": {
     "./package.json": {
       "default": "./dist/package.json"
