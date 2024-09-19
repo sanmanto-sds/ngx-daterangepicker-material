@@ -314,7 +314,7 @@
               [class]="calendarVariables['right']?.classes[row][col]"
               (click)="clickDate($event, sideEnum.right, row, col)"
               (mouseenter)="hoverDate($event, sideEnum.right, row, col)">
-              <span>{{ calendarVariables['right']?.calendar?.[row]?.[col]?.date() }}</span>
+              <span>{{ calendarVariables['right'].calendar?.[row]?.[col]?.date() }}</span>
             </td>
           </tr>
           </tbody>
@@ -325,7 +325,7 @@
           <select
             class="select-item hourselect"
             [disabled]="!startDate"
-            [(ngModel)]="timepickerVariables['right']?.selectedHour"
+            [(ngModel)]="timepickerVariables['right'].selectedHour"
             (ngModelChange)="timeChanged($event, sideEnum.right)">
             <option
               *ngFor="let i of timepickerVariables['right']?.hours"
@@ -340,7 +340,7 @@
           <select
             class="select-item minuteselect"
             [disabled]="!startDate"
-            [(ngModel)]="timepickerVariables['right']?.selectedMinute"
+            [(ngModel)]="timepickerVariables['right'].selectedMinute"
             (ngModelChange)="timeChanged($event, sideEnum.right)">
             <option
               *ngFor="let i of timepickerVariables['right']?.minutes; let index = index"
@@ -356,7 +356,7 @@
             <select
               class="select-item secondselect"
               [disabled]="!startDate"
-              [(ngModel)]="timepickerVariables['right']?.selectedSecond"
+              [(ngModel)]="timepickerVariables['right'].selectedSecond"
               (ngModelChange)="timeChanged($event, sideEnum.right)">
               <option
                 *ngFor="let i of timepickerVariables['right']?.seconds; let index = index"
@@ -372,10 +372,10 @@
           class="dropdowns">
           <select
             class="select-item ampmselect"
-            [(ngModel)]="timepickerVariables['right']?.ampmModel"
+            [(ngModel)]="timepickerVariables['right'].ampmModel"
             (ngModelChange)="timeChanged($event, sideEnum.right)">
-            <option value="AM" [disabled]="timepickerVariables['right']?.amDisabled">AM</option>
-            <option value="PM" [disabled]="timepickerVariables['right']?.pmDisabled">PM</option>
+            <option value="AM" [disabled]="timepickerVariables['right'].amDisabled">AM</option>
+            <option value="PM" [disabled]="timepickerVariables['right'].pmDisabled">PM</option>
           </select>
         </div>
       </div>
