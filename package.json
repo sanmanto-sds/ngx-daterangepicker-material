@@ -1,6 +1,6 @@
 {
-  "name": "ngx-daterangepicker-material-sanmanto",
-  "version": "6.0.4",
+  "name": "@sanmanto-sds/ngx-daterangepicker-material",
+  "version": "1.0.1",
   "description": "Angular 17 datepicker",
   "keywords": [
     "angular17",
@@ -24,7 +24,8 @@
     "lint": "ng lint",
     "ngc": "./node_modules/.bin/ngc -p tsconfig.json",
     "gh-pages": "ng build --configuration production --base-href=\"/ngx-daterangepicker-material/\" && ngh --dir demo/dist",
-    "build": "ng-packagr -p ng-package.json -c tsconfig.json"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.json",
+    "publish:npm": "npm publish --access public"
   },
   "author": "Matsehora Yehor",
   "repository": {
@@ -94,16 +95,16 @@
     "dayjs": "^1.11.4",
     "tslib": "^2.6.2"
   },
-  "main": "./fesm2022/ngx-daterangepicker-material.mjs",
+  "main": "./fesm2022/sanmanto-sds-ngx-daterangepicker-material.mjs",
   "exports": {
     "./package.json": {
       "default": "./dist/package.json"
     },
     ".": {
       "types": "./dist/index.d.ts",
-      "esm2022": "./dist/esm2022/ngx-daterangepicker-material.mjs",
-      "esm": "./dist/esm2022/ngx-daterangepicker-material.mjs",
-      "default": "./dist/fesm2022/ngx-daterangepicker-material.mjs"
+      "esm2022": "./dist/esm2022/sanmanto-sds-ngx-daterangepicker-material.mjs",
+      "esm": "./dist/esm2022/sanmanto-sds-ngx-daterangepicker-material.mjs",
+      "default": "./dist/fesm2022/sanmanto-sds-ngx-daterangepicker-material.mjs"
     }
   }
 }

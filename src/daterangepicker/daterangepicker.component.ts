@@ -170,7 +170,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   endDate = dayjs().endOf('day');
 
   @Input({ transform: numberAttribute })
-  dateLimit: number = null;
+  dateLimit!: number;
 
   // general
   @Input({ transform: booleanAttribute })
@@ -221,22 +221,22 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   showClearButton = false;
 
   @Input()
-  firstMonthDayClass: string = null;
+  firstMonthDayClass!: string;
 
   @Input()
-  lastMonthDayClass: string = null;
+  lastMonthDayClass!: string;
 
   @Input()
-  emptyWeekRowClass: string = null;
+  emptyWeekRowClass!: string;
 
   @Input()
-  emptyWeekColumnClass: string = null;
+  emptyWeekColumnClass!: string;
 
   @Input()
-  firstDayOfNextMonthClass: string = null;
+  firstDayOfNextMonthClass!: string;
 
   @Input()
-  lastDayOfPreviousMonthClass: string = null;
+  lastDayOfPreviousMonthClass!: string;
 
   @Input({ transform: booleanAttribute })
   showCustomRangeLabel: boolean;
@@ -266,7 +266,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   @Output() endDateChanged: EventEmitter<EndDate>;
   @Output() cancelClicked: EventEmitter<void>;
   @Output() clearClicked: EventEmitter<void>;
-  @Output() ongoing = new EventEmitter<boolean>();
+  @Output() ongoingChange = new EventEmitter<boolean>();
   @Output() calendarShow = new EventEmitter<void>();
   @Output() calendarHide = new EventEmitter<void>();
   @ViewChild('pickerContainer', { static: true }) pickerContainer: ElementRef;
@@ -291,7 +291,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   leftCalendar: VisibleCalendar = { month: null, calendar: [] };
   rightCalendar: VisibleCalendar = { month: null, calendar: [] };
   public showCalInRanges = false;
-  nowHoveredDate = null;
+  nowHoveredDate: any = null;
   pickingDate = false;
 
   protected minDateHolder: dayjs.Dayjs;
@@ -353,6 +353,14 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   @Input() set ranges(value: DateRanges) {
     this.rangesHolder = value;
     this.renderRanges();
+  }
+
+  get ongoing() {
+    return this.isOngoingActive;
+  }
+  
+  @Input() set ongoing(value: boolean) {
+    this.isOngoingActive = value;
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -1370,7 +1378,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
       this.datesUpdated.emit({ startDate: null, endDate: null });
       this.updateCalendars();
     }
-    this.ongoing.emit(this.isOngoingActive);
+    this.ongoingChange.emit(this.isOngoingActive);
   }
 
   validateStartAndEndDate() {
