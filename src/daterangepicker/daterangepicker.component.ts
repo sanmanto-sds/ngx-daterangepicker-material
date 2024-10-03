@@ -24,7 +24,6 @@ import LocalizedFormat from 'dayjs/esm/plugin/localizedFormat';
 import isoWeek from 'dayjs/esm/plugin/isoWeek';
 import week from 'dayjs/esm/plugin/weekOfYear';
 import customParseFormat from 'dayjs/esm/plugin/customParseFormat';
-import utc from 'dayjs/esm/plugin/utc';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { ThemeService } from './theme.service';
 
@@ -33,7 +32,6 @@ dayjs.extend(LocalizedFormat);
 dayjs.extend(isoWeek);
 dayjs.extend(week);
 dayjs.extend(customParseFormat);
-dayjs.extend(utc);
 
 export enum SideEnum {
   left = 'left',
@@ -358,7 +356,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
   get ongoing() {
     return this.isOngoingActive;
   }
-  
+
   @Input() set ongoing(value: boolean) {
     this.isOngoingActive = value;
   }
@@ -417,6 +415,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
 
   ngOnChanges(changes: SimpleChanges): void {
     if ((changes.startDate || changes.endDate) && this.inline) {
+      this.validateStartEndEndDate();
       this.updateView();
     }
   }
@@ -453,6 +452,18 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     this.renderCalendar(SideEnum.left);
     this.renderCalendar(SideEnum.right);
     this.renderRanges();
+  }
+
+  validateStartEndEndDate() {
+    if (this.maxDate) {
+      this.startDate.isAfter(this.maxDate) && (this.startDate = this.maxDate.clone());
+      this.endDate.isAfter(this.maxDate) && (this.endDate = this.maxDate.clone());
+    }
+
+    if (this.minDate) {
+      this.startDate.isBefore(this.minDate) && (this.startDate = this.minDate.clone());
+      this.endDate.isBefore(this.minDate) && (this.endDate = this.minDate.clone());
+    }
   }
 
   renderRanges(): void {
@@ -1381,19 +1392,11 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     this.ongoingChange.emit(this.isOngoingActive);
   }
 
-  validateStartAndEndDate() {
-    if (this.singleDatePicker || (!this.minDate && !this.maxDate)) return;
-    this.setStartDate(this.startDate);
-    this.setEndDate(this.endDate);
-    this.clickApply();
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   show(e?: Event): void {
     if (this.isShown) {
       return;
     }
-    this.validateStartAndEndDate();
     this.cachedVersion.start = this.startDate.clone();
     this.cachedVersion.end = this.endDate.clone();
     this.isShown = true;
@@ -1420,7 +1423,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges, AfterViewIni
     // if picker is attached to a text input, update it
     this.updateElement();
     this.isShown = false;
-    this.validateStartAndEndDate();
     this.ref.detectChanges();
     this.calendarHide.emit();
   }

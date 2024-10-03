@@ -17,6 +17,10 @@
     box-sizing: border-box;
   }
 
+  select {
+    cursor: pointer;
+  }
+
   .calendar-wrapper {
     display: flex;
     max-width: min-content;
@@ -226,6 +230,10 @@
           border-top: 3px solid transparent;
           border-bottom: 3px solid transparent;
         }
+
+        &:hover {
+          background-color: var(--datepicker-cellHoverBgColor);
+        }
       }
 
       &.next:before {
@@ -241,7 +249,7 @@
         border-color: var(--datepicker-cellHoverBorderColor);
         color: var(--datepicker-cellHoverColor);
         border-radius: var(--datepicker-cellBorderRadius);
-
+        font-weight: var(--datepicker-cellHoverFontWeight);
         transform: scale(1);
         transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 
@@ -256,7 +264,6 @@
 
   td {
     margin: .25em 0;
-    opacity: .8;
     transition: background-color .2s ease;
     border-radius: 2em;
     transform: scale(1);
@@ -267,6 +274,7 @@
         background-color: var(--datepicker-unselectedBgColor);
         border-color: var(--datepicker-unselectedBorderColor);
         color: var(--datepicker-unselectedColor);
+        font-weight: var(--datepicker-inRangeFontWeight);
       }
     }
 
@@ -284,10 +292,12 @@
 
     &.start-date {
       border-radius: var(--datepicker-cellBorderRadius) 0 0 var(--datepicker-cellBorderRadius);
+      font-weight: var(--datepicker-inRangeFontWeight);
     }
 
     &.end-date {
       border-radius: 0 var(--datepicker-cellBorderRadius) var(--datepicker-cellBorderRadius) 0;
+      font-weight: var(--datepicker-inRangeFontWeight);
     }
 
     &.start-date.end-date {
@@ -331,6 +341,15 @@
       color: var(--datepicker-selectColor);
       border: var(--datepicker-selectBorder);
       border-radius: var(--datepicker-selectRadius);
+      outline: none;
+
+      &:hover {
+        border-color: var(--datepicker-hoverCustomRangeBorderColor);
+      }
+
+      &:focus {
+        outline: 1px solid var(--datepicker-hoverCustomRangeBorderColor);
+      }
     }
 
     &:after {
@@ -467,6 +486,12 @@
           text-align: left;
           white-space: nowrap;
           outline: none;
+          color: var(--datepicker-cellColor);
+
+          &:hover {
+            color: var(--datepicker-selectColor);
+            border-left-color: var(--datepicker-hoverCustomRangeBorderColor);
+          }
 
           &.active {
             color: var(--datepicker-selectColor);

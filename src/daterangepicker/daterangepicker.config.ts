@@ -105,6 +105,7 @@ export interface ThemeConfig {
   selectColor?: string;
   inputHeight?: string;
   separatorColor?: string;
+  hoverCustomRangeBorderColor?: string;
 }
 
 /**
@@ -143,7 +144,7 @@ export const DefaultThemeConfig: ThemeConfig = {
   cellFontSize: '14px',
   cellFontWeight: '400',
   cellHoverColor: '#5A5A5A',
-  cellHoverBorderColor: 'trnsparent',
+  cellHoverBorderColor: 'transparent',
   cellHoverBgColor: '#FAFAFA',
   cellHoverFontWeight: '600',
   cellWeekdayNameColor: '#5A5A5A',
@@ -167,4 +168,5 @@ export const DefaultThemeConfig: ThemeConfig = {
   selectColor: '#000000',
   inputHeight: '32px',
   separatorColor: '#E8E8E8',
+  hoverCustomRangeBorderColor: '#BFBFBF',
 };

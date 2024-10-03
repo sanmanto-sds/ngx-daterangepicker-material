@@ -237,64 +237,65 @@ export const appConfig: ApplicationConfig = {
 
 ### Available theme options
 
-| Option                     | Type   | Default value          |
-|----------------------------|--------|------------------------|
-| color?                     | string | 'inherit'              |
-| bgColor?                   | string | '#FFFFFF'              |
-| inRangeColor?              | string | '#5A5A5A'              |
-| inRangeBorderColor?        | string | 'transparent'          |
-| inRangeBgColor?            | string | '#FAFAFA'              |
-| inRangeFontWeight?         | string | '600'                  |
-| activeColor?               | string | '#FFFFFF'              |
-| activeBgColor?             | string | '#151F6D'              |
-| activeBorderColor?         | string | 'transparent'          |
-| activeFontWeight?          | string | '600'                  |
-| unselectedColor?           | string | 'rgba(90, 90, 90, .5)' |
-| unselectedBgColor?         | string | 'transparent'          |
-| unselectedBorderColor?     | string | '#FFFFFF'              |
-| width?                     | string | '278px'                |
-| widthDouble?               | string | 'auto'                 |
-| borderColor?               | string | '#CCCCCC'              |
-| calendarMargin?            | string | '12px'                 |
-| calendarBgColor?           | string | '#FFFFFF'              |
-| calendarBorderSize?        | string | '1px'                  |
-| calendarBorderColor?       | string | 'transparent'          |
-| calendarBorderRadius?      | string | '4px'                  |
-| cellColor?                 | string | '#5A5A5A'              |
-| cellBorderColor?           | string | 'transparent'          |
-| cellBgColor?               | string | '#FFFFFF'              |
-| cellFontSize?              | string | '14px'                 |
-| cellFontWeight?            | string | '400'                  |
-| cellHoverColor?            | string | '#5A5A5A'              |
-| cellHoverBorderColor?      | string | 'transparent'          |
-| cellHoverBgColor?          | string | '#FAFAFA'              |
-| cellHoverFontWeight?       | string | '600'                  |
-| cellSize?                  | string | '32px'                 |
-| cellWidth?                 | string | '32px'                 |
-| cellHeight?                | string | '32px'                 |
-| cellBorderRadius?          | string | '4px'                  |
-| cellBorderSize?            | string | '1px'                  |
-| cellWeekdayNameColor?      | string | '#5A5A5A'              |
-| cellWeekdayNameFontWeight? | string | '700'                  |
-| cellWeekdayNameFontSize?   | string | '12px'                 |
-| controlHeight?             | string | '30px'                 |
-| controlLineHeight?         | string | '30px'                 |
-| controlColor?              | string | '#555'                 |
-| controlBorderSize?         | string | '1px'                  |
-| controlBorderColor?        | string | '#ccc'                 |
-| controlBorderRadius?       | string | '4px'                  |
-| controlActiveBorderSize?   | string | '1px'                  |
-| controlActiveBorderColor?  | string | '#08c'                 |
-| controlActiveBorderRadius? | string | '4px'                  |
-| controlDisabledColor?      | string | '#ccc'                 |
-| selectBorder?              | string | '1px solid #E8E8E8'    |
-| selectBackground?          | string | '#ffffff'              |
-| selectPadding?             | string | '0 8px'                |
-| selectRadius?              | string | '4px'                  |
-| selectFontSize?            | string | '14px'                 |
-| selectColor?               | string | '#000000'              |
-| inputHeight?               | string | '#000000'              |
-| separatorColor?            | string | '#E8E8E8'              |
+| Option                      | Type   | Default value          |
+|-----------------------------|--------|------------------------|
+| color?                      | string | 'inherit'              |
+| bgColor?                    | string | '#FFFFFF'              |
+| inRangeColor?               | string | '#5A5A5A'              |
+| inRangeBorderColor?         | string | 'transparent'          |
+| inRangeBgColor?             | string | '#FAFAFA'              |
+| inRangeFontWeight?          | string | '600'                  |
+| activeColor?                | string | '#FFFFFF'              |
+| activeBgColor?              | string | '#151F6D'              |
+| activeBorderColor?          | string | 'transparent'          |
+| activeFontWeight?           | string | '600'                  |
+| unselectedColor?            | string | 'rgba(90, 90, 90, .5)' |
+| unselectedBgColor?          | string | 'transparent'          |
+| unselectedBorderColor?      | string | '#FFFFFF'              |
+| width?                      | string | '278px'                |
+| widthDouble?                | string | 'auto'                 |
+| borderColor?                | string | '#CCCCCC'              |
+| calendarMargin?             | string | '12px'                 |
+| calendarBgColor?            | string | '#FFFFFF'              |
+| calendarBorderSize?         | string | '1px'                  |
+| calendarBorderColor?        | string | 'transparent'          |
+| calendarBorderRadius?       | string | '4px'                  |
+| cellColor?                  | string | '#5A5A5A'              |
+| cellBorderColor?            | string | 'transparent'          |
+| cellBgColor?                | string | '#FFFFFF'              |
+| cellFontSize?               | string | '14px'                 |
+| cellFontWeight?             | string | '400'                  |
+| cellHoverColor?             | string | '#5A5A5A'              |
+| cellHoverBorderColor?       | string | 'transparent'          |
+| cellHoverBgColor?           | string | '#FAFAFA'              |
+| cellHoverFontWeight?        | string | '600'                  |
+| cellSize?                   | string | '32px'                 |
+| cellWidth?                  | string | '32px'                 |
+| cellHeight?                 | string | '32px'                 |
+| cellBorderRadius?           | string | '4px'                  |
+| cellBorderSize?             | string | '1px'                  |
+| cellWeekdayNameColor?       | string | '#5A5A5A'              |
+| cellWeekdayNameFontWeight?  | string | '700'                  |
+| cellWeekdayNameFontSize?    | string | '12px'                 |
+| controlHeight?              | string | '30px'                 |
+| controlLineHeight?          | string | '30px'                 |
+| controlColor?               | string | '#555'                 |
+| controlBorderSize?          | string | '1px'                  |
+| controlBorderColor?         | string | '#ccc'                 |
+| controlBorderRadius?        | string | '4px'                  |
+| controlActiveBorderSize?    | string | '1px'                  |
+| controlActiveBorderColor?   | string | '#08c'                 |
+| controlActiveBorderRadius?  | string | '4px'                  |
+| controlDisabledColor?       | string | '#ccc'                 |
+| selectBorder?               | string | '1px solid #E8E8E8'    |
+| selectBackground?           | string | '#ffffff'              |
+| selectPadding?              | string | '0 8px'                |
+| selectRadius?               | string | '4px'                  |
+| selectFontSize?             | string | '14px'                 |
+| selectColor?                | string | '#000000'              |
+| inputHeight?                | string | '#000000'              |
+| separatorColor?             | string | '#E8E8E8'              |
+| hoverCustomRangeBorderColor | string | '#BFBFBF'              |                     
 
 ## Props that can be passed to component
 

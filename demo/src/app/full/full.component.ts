@@ -44,8 +44,8 @@ export class FullComponent implements OnInit {
     closeOnAutoApply: true,
   };
 
-  minDate: dayjs.Dayjs = dayjs().subtract(5, 'days');
-  maxDate: dayjs.Dayjs = dayjs().add(2, 'month');
+  minDate: dayjs.Dayjs = dayjs().startOf('year');
+  maxDate: dayjs.Dayjs = dayjs().endOf('year');
   locale: LocaleConfig = {
     format: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
     displayFormat: 'DD MMMM YYYY HH:mm',
