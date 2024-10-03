@@ -46,7 +46,7 @@
             <ng-container
               *ngIf="
                                 !calendarVariables['left']?.minDate ||
-                                (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay) &&
+                                (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay.subtract(1, 'days')) &&
                                     (!this.linkedCalendars || true))
                             ">
               <th (click)="clickPrev(sideEnum.left)" class="prev available"></th>
@@ -55,7 +55,7 @@
               *ngIf="
                                 !(
                                     !calendarVariables['left']?.minDate ||
-                                    (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay) &&
+                                    (calendarVariables['left']?.minDate?.isBefore(calendarVariables['left']?.calendar?.firstDay.subtract(1, 'days')) &&
                                         (!this.linkedCalendars || true))
                                 )
                             ">
@@ -98,7 +98,7 @@
             <ng-container
               *ngIf="
                                 (!calendarVariables['left']?.maxDate ||
-                                    calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay)) &&
+                                    calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay.add(1, 'days'))) &&
                                 (!linkedCalendars || singleDatePicker)
                             ">
               <th class="next available" (click)="clickNext(sideEnum.left)"></th>
@@ -107,7 +107,7 @@
               *ngIf="
                                 !(
                                     (!calendarVariables['left']?.maxDate ||
-                                        calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay)) &&
+                                        calendarVariables['left']?.maxDate?.isAfter(calendarVariables['left']?.calendar?.lastDay.add(1, 'days'))) &&
                                     (!linkedCalendars || singleDatePicker)
                                 )
                             ">
@@ -156,10 +156,10 @@
             [(ngModel)]="timepickerVariables['left'].selectedHour"
             (ngModelChange)="timeChanged($event, sideEnum.left)">
             <option
-              *ngFor="let i of timepickerVariables['left'].hours || []"
+              *ngFor="let i of timepickerVariables['left']?.hours || []"
               [value]="i"
-              [disabled]="timepickerVariables['left'].disabledHours.indexOf(i) > -1">
-              {{ i }}
+              [disabled]="timepickerVariables['left']?.disabledHours.indexOf(i) > -1">
+              {{ timepickerVariables['left']?.hoursLabels[i] }}
             </option>
           </select>
         </div>
@@ -219,7 +219,7 @@
             <ng-container
               *ngIf="
                                 (!calendarVariables['right']?.minDate ||
-                                    calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar.firstDay)) &&
+                                    calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar.firstDay.subtract(1, 'days'))) &&
                                 !this.linkedCalendars
                             ">
               <th (click)="clickPrev(sideEnum.right)" class="prev available"></th>
@@ -228,7 +228,7 @@
               *ngIf="
                                 !(
                                     (!calendarVariables['right']?.minDate ||
-                                        calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar?.firstDay)) &&
+                                        calendarVariables['right']?.minDate.isBefore(calendarVariables['right']?.calendar?.firstDay.subtract(1, 'days'))) &&
                                     !this.linkedCalendars
                                 )
                             ">
@@ -274,7 +274,7 @@
             <ng-container
               *ngIf="
                                 !calendarVariables['right']?.maxDate ||
-                                (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay) &&
+                                (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay.add(1, 'days')) &&
                                     (!linkedCalendars || singleDatePicker || true))
                             ">
               <th class="next available" (click)="clickNext(sideEnum.right)"></th>
@@ -283,7 +283,7 @@
               *ngIf="
                                 !(
                                     !calendarVariables['right']?.maxDate ||
-                                    (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay) &&
+                                    (calendarVariables['right']?.maxDate.isAfter(calendarVariables['right']?.calendar?.lastDay.add(1, 'days')) &&
                                         (!linkedCalendars || singleDatePicker || true))
                                 )
                             ">
@@ -331,7 +331,7 @@
               *ngFor="let i of timepickerVariables['right']?.hours"
               [value]="i"
               [disabled]="timepickerVariables['right']?.disabledHours.indexOf(i) > -1">
-              {{ i }}
+              {{ timepickerVariables['right']?.hoursLabels[i] }}
             </option>
           </select>
         </div>
